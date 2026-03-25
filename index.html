@@ -397,14 +397,32 @@ body{
 .gt-leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
 .gt-sliders{margin-bottom:16px}
-.gt-slider-row{margin-bottom:14px}
-.gt-slider-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px}
-.gt-slider-label{font-size:13px;font-weight:600;color:var(--black);letter-spacing:-.01em}
-.gt-slider-val{font-size:18px;font-weight:800;letter-spacing:-.02em}
-.gt-slider-desc{font-size:10px;color:var(--grey);margin-bottom:6px}
-.gt-slider{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:3px;outline:none;cursor:pointer}
-.gt-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--black);border:2px solid var(--white);cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.3)}
-.gt-slider-ticks{display:flex;justify-content:space-between;font-size:9px;color:var(--grey);margin-top:3px}
+.gt-q-block{margin-bottom:20px;border-bottom:1px solid #eee;padding-bottom:16px}
+.gt-q-block:last-child{border-bottom:none}
+.gt-q-label{font-size:13px;font-weight:700;color:var(--black);letter-spacing:-.01em;margin-bottom:2px}
+.gt-q-desc{font-size:10px;color:var(--grey);margin-bottom:8px}
+.gt-q-text{font-size:12px;font-weight:500;color:var(--black);margin-bottom:10px;line-height:1.5;font-style:italic}
+.gt-q-options{display:flex;flex-direction:column;gap:6px}
+.gt-q-opt{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:10px 12px;border-radius:8px;
+  border:2px solid #e0e0e0;
+  cursor:pointer;transition:all .15s;
+  font-size:11px;line-height:1.45;color:var(--black);
+  background:var(--white);
+}
+.gt-q-opt:hover{border-color:#999}
+.gt-q-opt.selected{border-color:var(--black);background:#f5f5f5;font-weight:600}
+.gt-q-opt .gt-q-num{
+  flex-shrink:0;width:22px;height:22px;
+  border-radius:50%;border:2px solid #ccc;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;font-weight:700;color:#999;
+  transition:all .15s;
+}
+.gt-q-opt.selected .gt-q-num{
+  border-color:var(--black);background:var(--black);color:var(--white);
+}
 
 .gt-reflection-label{font-size:11px;font-weight:600;color:var(--black);letter-spacing:-.01em;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
 .gt-reflection{
@@ -841,11 +859,76 @@ document.getElementById('name-input').addEventListener('keydown',e=>{if(e.key===
 // ???????????????????????????????????????????????????????
 
 const GT_DIMS = [
-  {key:'being',      label:'Being',        desc:'Relationship to self — presence, values, openness',     col:'#FF9AB0'},
-  {key:'thinking',   label:'Thinking',     desc:'Cognitive skills — perspective, complexity, sense-making',col:'#0071FF'},
-  {key:'relating',   label:'Relating',     desc:'Caring for others — empathy, humility, connectedness',  col:'#FFDD00'},
-  {key:'collaborating',label:'Collaborating',desc:'Social skills — trust, communication, inclusion',    col:'#00953C'},
-  {key:'acting',     label:'Acting',       desc:'Enabling change — courage, creativity, perseverance',   col:'#66AAFF'},
+  {key:'being', label:'Being', desc:'Relationship to self — presence, values, openness', col:'#FF9AB0',
+   questions:{
+     1:'Reflecting on yourself today — how connected were you to your own values and inner compass?',
+     2:'As you explored systems and structures — how grounded did you stay in who you are?',
+     3:'Out in the streets and with real people — how present and authentic were you?',
+     4:'Looking back at the full journey — how well do you know yourself now compared to day one?'
+   },
+   answers:[
+     'I felt disconnected — hard to access what I really think or feel',
+     'I noticed my values but struggled to stay grounded in them',
+     'I paused and reflected, though it took conscious effort',
+     'I stayed centered and responded from my values most of the time',
+     'I felt fully present and acted with clarity and authenticity'
+   ]},
+  {key:'thinking', label:'Thinking', desc:'Cognitive skills — perspective, complexity, sense-making', col:'#0071FF',
+   questions:{
+     1:'When you first looked at your challenge today — how did you make sense of its complexity?',
+     2:'Mapping the system around your challenge — how comfortable were you holding complexity?',
+     3:'Encountering real-life perspectives on the street — how did that reshape your thinking?',
+     4:'Integrating everything you have learned — how has your understanding of your challenge evolved?'
+   },
+   answers:[
+     'I felt overwhelmed and defaulted to simple explanations',
+     'I saw some complexity but stuck with familiar thinking patterns',
+     'I explored multiple angles, though some felt uncomfortable',
+     'I held contradictions and connected patterns across perspectives',
+     'I embraced the full complexity and found unexpected insights'
+   ]},
+  {key:'relating', label:'Relating', desc:'Caring for others — empathy, humility, connectedness', col:'#FFDD00',
+   questions:{
+     1:'Getting to know your fellow changemakers — how deeply did you connect today?',
+     2:'Hearing from stakeholders and experts — how open were you to their perspectives?',
+     3:'Meeting people in the field — how genuinely did you engage with their lived experience?',
+     4:'As you prepare to leave — how has your capacity for empathy shifted this week?'
+   },
+   answers:[
+     'I mostly stayed in my own world and assumptions',
+     'I listened politely but did not truly let it in',
+     'I showed genuine curiosity about someone else\'s experience',
+     'I felt moved by another perspective and it shifted my own',
+     'I experienced deep connection and mutual understanding'
+   ]},
+  {key:'collaborating', label:'Collaborating', desc:'Social skills — trust, communication, inclusion', col:'#00953C',
+   questions:{
+     1:'In your first group work today — how well did you collaborate with new people?',
+     2:'Working on ecosystem and stakeholder exercises — how effectively did you build with others?',
+     3:'Co-creating in the field with your team — how inclusive and trusting was your collaboration?',
+     4:'Reflecting on the full programme — what kind of collaborator have you become?'
+   },
+   answers:[
+     'I held back or dominated — collaboration felt forced',
+     'I participated but stayed in my comfort zone',
+     'I actively contributed and made space for others',
+     'I helped build trust and brought different voices together',
+     'I helped the group achieve something none of us could alone'
+   ]},
+  {key:'acting', label:'Acting', desc:'Enabling change — courage, creativity, perseverance', col:'#66AAFF',
+   questions:{
+     1:'On this first day — how ready do you feel to act on your challenge?',
+     2:'Understanding the system — did that motivate or paralyse your willingness to act?',
+     3:'Seeing what is possible on the street — how courageously did you engage?',
+     4:'Heading home with your story — how committed are you to taking real action?'
+   },
+   answers:[
+     'I stayed safe and avoided taking any risks',
+     'I thought about acting but hesitated',
+     'I took a small step outside my comfort zone',
+     'I acted with conviction even when it felt uncertain',
+     'I pushed through resistance and feel ready to act'
+   ]},
 ];
 
 const GT_DAYS = [
@@ -906,19 +989,30 @@ function gtSetDay(n) {
 function gtBuildSliders() {
   const wrap = document.getElementById('gt-sliders');
   if(!wrap) return;
-  wrap.innerHTML = GT_DIMS.map(d => `
-    <div class="gt-slider-row">
-      <div class="gt-slider-head">
-        <span class="gt-slider-label">${d.label}</span>
-        <span class="gt-slider-val" id="gtv-${d.key}" style="color:${d.col}">${gtScores[d.key]}</span>
+  wrap.innerHTML = GT_DIMS.map(d => {
+    const q = d.questions[gtDay] || d.questions[1];
+    const current = gtScores[d.key];
+    return `
+    <div class="gt-q-block">
+      <div class="gt-q-label" style="color:${d.col}">${d.label}</div>
+      <div class="gt-q-desc">${d.desc}</div>
+      <div class="gt-q-text">${q}</div>
+      <div class="gt-q-options">
+        ${d.answers.map((a, i) => `
+          <div class="gt-q-opt${current===(i+1)?' selected':''}" onclick="gtSelect('${d.key}',${i+1})">
+            <span class="gt-q-num">${i+1}</span>
+            <span>${a}</span>
+          </div>
+        `).join('')}
       </div>
-      <div class="gt-slider-desc">${d.desc}</div>
-      <input type="range" min="1" max="5" step="1" value="${gtScores[d.key]}"
-        class="gt-slider" id="gts-${d.key}"
-        style="background:linear-gradient(to right,${d.col} 0%,${d.col} ${(gtScores[d.key]-1)*25}%,#e0e0e0 ${(gtScores[d.key]-1)*25}%,#e0e0e0 100%)"
-        oninput="gtSlide('${d.key}',this.value,this,'${d.col}')">
-      <div class="gt-slider-ticks">${GT_TICKS.map(t=>`<span>${t}</span>`).join('')}</div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
+}
+
+function gtSelect(key, val) {
+  gtScores[key] = val;
+  gtBuildSliders();
+  gtDrawRadar();
 }
 
 function gtSlide(key, val, el, col) {
