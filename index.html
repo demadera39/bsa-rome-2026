@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>BSA Rome 2026 Ñ Reflective Card Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --black:#000000;
+  --white:#FFFFFF;
+  --grey:#67686A;
+  --red:#C4200A;
+  --pink:#FF9AB0;
+  --blue:#0071FF;
+  --yellow:#FFDD00;
+  --green:#00953C;
+  --pink60:#FFC2D0;
+  --blue60:#66AAFF;
+  --yellow60:#FFEB66;
+  --green60:#66BF8A;
+  --red60:#DC796C;
+}
+
+body{
+  font-family:'Rubik',system-ui,sans-serif;
+  background:var(--white);
+  color:var(--black);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+.app{max-width:440px;margin:0 auto;padding-bottom:40px}
+.screen{display:none}.screen.active{display:block}
+
+/* ===== WELCOME SCREEN ===== */
+.welcome{padding:0}
+
+.welcome-hero{
+  background:var(--green);
+  padding:32px 24px 28px;
+  position:relative;
+  overflow:hidden;
+}
+
+.welcome-hero::after{
+  content:'';
+  position:absolute;
+  bottom:-20px;right:-20px;
+  width:120px;height:120px;
+  border-radius:50%;
+  border:3px solid var(--black);
+  opacity:.12;
+}
+
+.welcome-title{
+  font-size:38px;
+  font-weight:900;
+  color:var(--black);
+  line-height:.92;
+  letter-spacing:-.03em;
+  margin-bottom:6px;
+}
+
+.welcome-sub{
+  font-size:14px;
+  font-weight:400;
+  color:var(--black);
+  opacity:.75;
+  line-height:1.5;
+}
+
+.welcome-body{padding:20px 24px 24px;}
+
+.welcome-stats{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:8px;
+  margin-bottom:24px;
+}
+
+.ws{
+  background:var(--black);
+  border-radius:10px;
+  padding:14px 10px;
+  text-align:center;
+}
+.ws-n{font-size:22px;font-weight:800;color:var(--white);letter-spacing:-.02em}
+.ws-l{font-size:10px;color:rgba(255,255,255,.55);margin-top:2px;font-weight:500}
+
+.name-label{font-size:11px;color:var(--black);letter-spacing:.05em;font-weight:600;margin-bottom:6px;text-transform:uppercase}
+
+.name-input{
+  width:100%;
+  background:var(--white);
+  border:2px solid var(--black);
+  border-radius:10px;
+  color:var(--black);
+  font-size:16px;
+  padding:14px 16px;
+  font-family:inherit;
+  margin-bottom:4px;
+  transition:border-color .2s;
+}
+.name-input:focus{outline:none;border-color:var(--green)}
+.name-input::placeholder{color:var(--grey)}
+
+.name-hint{font-size:11px;color:var(--grey);margin-bottom:20px}
+
+.start-btn{
+  width:100%;
+  background:var(--black);
+  border:none;
+  border-radius:10px;
+  color:var(--white);
+  font-size:15px;
+  font-weight:600;
+  padding:16px;
+  cursor:pointer;
+  font-family:inherit;
+  margin-bottom:24px;
+  transition:transform .15s,box-shadow .15s;
+  letter-spacing:-.01em;
+}
+.start-btn:active{transform:scale(.98)}
+
+.arc-header{
+  font-size:10px;
+  color:var(--grey);
+  margin-bottom:10px;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
+.arc-row{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:9px 0;
+  border-bottom:1px solid rgba(0,0,0,.08);
+}
+.arc-row:last-child{border-bottom:none}
+
+.arc-dot{
+  width:40px;height:40px;
+  border-radius:8px;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.arc-day{font-size:8px;font-weight:700;color:var(--white);text-transform:uppercase;letter-spacing:.03em}
+.arc-date{font-size:9px;color:rgba(255,255,255,.7);font-weight:500}
+.arc-label{font-size:13px;color:var(--black);font-weight:600;letter-spacing:-.01em}
+.arc-sub{font-size:11px;color:var(--grey)}
+
+/* ===== MAIN SCREEN ===== */
+.topbar{
+  background:var(--black);
+  padding:12px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  position:sticky;top:0;z-index:10;
+}
+
+.topbar-left{display:flex;align-items:center;gap:8px}
+.topbar-logo{font-size:12px;font-weight:700;color:var(--white);letter-spacing:-.01em}
+.topbar-name{font-size:11px;color:rgba(255,255,255,.5);font-weight:400}
+
+.progress-pill{
+  background:var(--green);
+  border-radius:20px;
+  padding:4px 10px;
+  font-size:11px;
+  color:var(--black);
+  font-weight:600;
+}
+
+.tab-row{
+  display:flex;
+  gap:0;
+  background:var(--white);
+  border-bottom:2px solid var(--black);
+}
+.tab{
+  flex:1;text-align:center;
+  padding:10px 4px;
+  font-size:12px;font-weight:600;
+  color:var(--grey);
+  cursor:pointer;border:none;
+  background:transparent;
+  font-family:inherit;
+  letter-spacing:-.01em;
+  border-bottom:3px solid transparent;
+  margin-bottom:-2px;
+  transition:color .15s;
+}
+.tab.on{
+  color:var(--black);
+  border-bottom-color:var(--black);
+}
+
+.content{padding:14px 16px 32px}
+
+.filter-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
+.filt{
+  font-size:10px;
+  padding:5px 10px;
+  border-radius:20px;
+  border:1.5px solid var(--black);
+  background:transparent;
+  color:var(--black);
+  cursor:pointer;
+  font-family:inherit;
+  font-weight:500;
+  transition:all .15s;
+}
+.filt.on{
+  background:var(--black);
+  color:var(--white);
+}
+
+.section-hdr{
+  font-size:10px;
+  color:var(--grey);
+  letter-spacing:.06em;
+  padding:12px 0 6px;
+  text-transform:uppercase;
+  font-weight:600;
+}
+
+/* ===== CARDS ===== */
+.card{
+  background:var(--white);
+  border-radius:12px;
+  border:2px solid var(--black);
+  overflow:hidden;
+  margin-bottom:10px;
+}
+
+.card-top{
+  padding:10px 14px 8px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+
+.cat-badge{
+  font-size:9px;
+  font-weight:700;
+  padding:4px 10px;
+  border-radius:20px;
+  letter-spacing:.03em;
+  text-transform:uppercase;
+}
+
+.day-tag{font-size:10px;color:var(--grey);font-weight:500;display:flex;align-items:center;gap:4px}
+
+.card-body{padding:0 14px 14px}
+.card-title{
+  font-size:15px;
+  font-weight:700;
+  color:var(--black);
+  line-height:1.35;
+  margin-bottom:3px;
+  letter-spacing:-.02em;
+}
+.card-speaker{font-size:11px;font-weight:600;margin-bottom:4px}
+.card-dur{font-size:10px;color:var(--grey);margin-bottom:8px;font-weight:500}
+
+.divider{border:none;border-top:1px solid rgba(0,0,0,.1);margin:10px 0}
+
+.reflect-lbl{
+  font-size:9px;
+  font-weight:700;
+  letter-spacing:.06em;
+  margin-bottom:5px;
+  text-transform:uppercase;
+}
+.reflect-q{font-size:12px;color:var(--black);line-height:1.55;margin-bottom:10px;font-weight:400}
+
+.watch-btn{
+  display:flex;align-items:center;gap:8px;
+  background:var(--black);
+  border:none;
+  color:var(--white);
+  font-size:11px;font-weight:600;
+  padding:10px 14px;
+  border-radius:8px;
+  cursor:pointer;
+  width:100%;
+  margin-bottom:10px;
+  text-decoration:none;
+  font-family:inherit;
+  transition:transform .1s;
+  letter-spacing:-.01em;
+}
+.watch-btn:active{transform:scale(.98)}
+
+.play-tri{
+  width:0;height:0;
+  border-top:5px solid transparent;
+  border-bottom:5px solid transparent;
+  border-left:9px solid var(--white);
+  flex-shrink:0;
+}
+
+.resp-lbl{font-size:9px;color:var(--grey);letter-spacing:.05em;margin-bottom:4px;font-weight:600;text-transform:uppercase}
+
+.resp-area{
+  width:100%;
+  background:rgba(0,0,0,.03);
+  border:1.5px solid rgba(0,0,0,.12);
+  border-radius:8px;
+  color:var(--black);
+  font-size:13px;
+  padding:10px 12px;
+  resize:none;
+  font-family:inherit;
+  min-height:60px;
+  transition:border-color .2s;
+}
+.resp-area:focus{outline:none;border-color:var(--black)}
+.resp-area::placeholder{color:var(--grey)}
+
+.obs-prompt{margin-bottom:10px}
+.obs-plbl{font-size:11px;font-weight:600;margin-bottom:4px;letter-spacing:-.01em}
+
+.saved-empty{
+  padding:32px 16px;
+  color:var(--grey);
+  font-size:13px;
+  text-align:center;
+  line-height:1.6;
+}
+.saved-name{
+  font-size:14px;
+  font-weight:700;
+  color:var(--black);
+  padding:8px 0 8px;
+  letter-spacing:-.02em;
+}
+
+/* ===== PROGRAMME ===== */
+.prog-block{margin-bottom:20px}
+.prog-header{
+  border-radius:10px;
+  padding:12px 14px;
+  margin-bottom:8px;
+}
+.prog-row{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:8px 0;
+  border-bottom:1px solid rgba(0,0,0,.06);
+}
+.prog-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.prog-t{font-size:13px;color:var(--black);font-weight:500;letter-spacing:-.01em}
+.prog-s{font-size:11px;color:var(--grey)}
+
+/* Filled dot indicator */
+.filled-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--green);
+  display:inline-block;
+}
+
+/* ===== GROWTH TRACKER ===== */
+.gt-day-row{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;margin-bottom:16px}
+.gt-day-btn{
+  flex-shrink:0;
+  padding:8px 14px;
+  border-radius:10px;
+  border:2px solid var(--black);
+  background:transparent;
+  font-family:inherit;
+  font-size:11px;font-weight:600;
+  color:var(--black);cursor:pointer;
+  text-align:center;
+  transition:all .15s;
+  min-width:72px;
+}
+.gt-day-btn.on{background:var(--black);color:var(--white)}
+.gt-day-btn.done{background:var(--green);border-color:var(--green);color:var(--white)}
+.gt-day-btn.done.on{background:var(--black);border-color:var(--black)}
+
+.gt-radar-wrap{
+  background:var(--black);
+  border-radius:14px;
+  padding:16px;
+  margin-bottom:16px;
+}
+.gt-radar-title{font-size:10px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.06em;text-align:center;margin-bottom:8px;text-transform:uppercase}
+.gt-canvas-wrap{position:relative;width:100%;padding-bottom:85%;margin-bottom:4px}
+.gt-canvas-wrap canvas{position:absolute;top:0;left:0;width:100%;height:100%}
+
+.gt-legend{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:6px}
+.gt-leg-item{display:flex;align-items:center;gap:4px;font-size:9px;color:rgba(255,255,255,.6);font-weight:500}
+.gt-leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+.gt-sliders{margin-bottom:16px}
+.gt-slider-row{margin-bottom:14px}
+.gt-slider-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px}
+.gt-slider-label{font-size:13px;font-weight:600;color:var(--black);letter-spacing:-.01em}
+.gt-slider-val{font-size:18px;font-weight:800;letter-spacing:-.02em}
+.gt-slider-desc{font-size:10px;color:var(--grey);margin-bottom:6px}
+.gt-slider{width:100%;-webkit-appearance:none;appearance:none;height:6px;border-radius:3px;outline:none;cursor:pointer}
+.gt-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--black);border:2px solid var(--white);cursor:pointer;box-shadow:0 1px 4px rgba(0,0,0,.3)}
+.gt-slider-ticks{display:flex;justify-content:space-between;font-size:9px;color:var(--grey);margin-top:3px}
+
+.gt-reflection-label{font-size:11px;font-weight:600;color:var(--black);letter-spacing:-.01em;margin-bottom:6px;text-transform:uppercase;letter-spacing:.04em}
+.gt-reflection{
+  width:100%;background:var(--white);
+  border:2px solid var(--black);
+  border-radius:10px;color:var(--black);
+  font-size:13px;padding:12px 14px;
+  font-family:inherit;resize:none;
+  min-height:80px;
+  transition:border-color .2s;
+}
+.gt-reflection:focus{outline:none;border-color:var(--green)}
+.gt-reflection::placeholder{color:var(--grey)}
+
+.gt-save-btn{
+  width:100%;background:var(--black);
+  border:none;border-radius:10px;
+  color:var(--white);font-size:15px;font-weight:600;
+  padding:15px;cursor:pointer;font-family:inherit;
+  margin-top:14px;letter-spacing:-.01em;
+  transition:transform .1s;
+}
+.gt-save-btn:active{transform:scale(.98)}
+.gt-save-btn.saved{background:var(--green)}
+
+.gt-growth-empty{text-align:center;padding:32px 16px;color:var(--grey);font-size:13px;line-height:1.6}
+
+.gt-change-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:16px}
+.gt-change-cell{background:var(--black);border-radius:10px;padding:10px 4px;text-align:center}
+.gt-change-dim{font-size:8px;color:rgba(255,255,255,.5);font-weight:600;letter-spacing:.03em;margin-bottom:4px;text-transform:uppercase}
+.gt-change-val{font-size:18px;font-weight:800;letter-spacing:-.02em}
+.gt-change-val.pos{color:var(--green)}
+.gt-change-val.neg{color:var(--red)}
+.gt-change-val.neu{color:rgba(255,255,255,.3)}
+
+.gt-reflections-title{font-size:10px;font-weight:600;color:var(--grey);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.gt-reflection-card{background:var(--white);border:2px solid var(--black);border-radius:12px;padding:14px;margin-bottom:8px}
+.gt-reflection-day{font-size:10px;font-weight:700;color:var(--green);margin-bottom:4px;letter-spacing:.03em;text-transform:uppercase}
+.gt-reflection-text{font-size:13px;color:var(--black);line-height:1.5}
+
+.gt-subtab-row{display:flex;gap:0;border-bottom:2px solid var(--black);margin-bottom:16px}
+.gt-subtab{flex:1;text-align:center;padding:9px 4px;font-size:12px;font-weight:600;color:var(--grey);cursor:pointer;border:none;background:transparent;font-family:inherit;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .15s}
+.gt-subtab.on{color:var(--black);border-bottom-color:var(--black)}
+
+/* ===== YOUTUBE EMBED ===== */
+.watch-btn-row{display:flex;gap:6px;margin-bottom:10px}
+.watch-btn{flex:1;margin-bottom:0}
+.watch-btn-ext{
+  display:flex;align-items:center;justify-content:center;
+  background:transparent;
+  border:2px solid var(--black);
+  border-radius:8px;
+  color:var(--black);
+  font-size:11px;font-weight:600;
+  padding:10px 12px;
+  cursor:pointer;
+  text-decoration:none;
+  font-family:inherit;
+  white-space:nowrap;
+}
+.yt-container{
+  position:relative;
+  width:100%;
+  padding-bottom:56.25%;
+  border-radius:10px;
+  overflow:hidden;
+  background:#000;
+  margin-bottom:10px;
+  display:none;
+}
+.yt-container.visible{display:block}
+.yt-container iframe{
+  position:absolute;top:0;left:0;
+  width:100%;height:100%;border:none;
+}
+.yt-poster{
+  position:absolute;top:0;left:0;
+  width:100%;height:100%;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+}
+.yt-poster img{
+  position:absolute;top:0;left:0;
+  width:100%;height:100%;
+  object-fit:cover;
+}
+.yt-play{
+  position:relative;z-index:1;
+  width:56px;height:56px;
+  border-radius:50%;
+  background:rgba(0,0,0,.75);
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .15s,background .15s;
+  flex-shrink:0;
+}
+.yt-poster:hover .yt-play{background:var(--red);transform:scale(1.1)}
+.yt-play-tri{
+  width:0;height:0;
+  border-top:10px solid transparent;
+  border-bottom:10px solid transparent;
+  border-left:18px solid #fff;
+  margin-left:3px;
+}
+.yt-fallback{
+  position:absolute;top:0;left:0;
+  width:100%;height:100%;
+  display:none;
+  flex-direction:column;
+  align-items:center;justify-content:center;
+  gap:10px;
+  background:rgba(0,0,0,.85);
+  color:#fff;
+  font-size:12px;
+  text-align:center;
+  padding:16px;
+}
+.yt-fallback.visible{display:flex}
+.yt-fallback a{
+  color:var(--yellow);
+  font-weight:700;
+  text-decoration:none;
+  font-size:13px;
+  border:2px solid var(--yellow);
+  padding:8px 16px;
+  border-radius:8px;
+}
+.yt-fallback a:hover{background:var(--yellow);color:#000}
+
+</style>
+</head>
+<body>
+<div class="app">
+
+<div class="screen active" id="s-welcome">
+<div class="welcome">
+  <div class="welcome-hero">
+    <div style="font-size:12px;color:var(--black);font-weight:500;margin-bottom:20px;line-height:1.3"><strong style="display:block;font-size:13px;font-weight:700;letter-spacing:-.02em">Better Society Academy</strong>Rome 2026 á Building future-proof cities</div>
+    <div class="welcome-title">Reflective<br>card deck</div>
+    <div class="welcome-sub">Your companion for the masterclass. Watch, reflect, and capture your thinking across 4 days in Rome.</div>
+  </div>
+
+  <div class="welcome-body">
+    <div class="welcome-stats">
+      <div class="ws"><div class="ws-n">23</div><div class="ws-l">IDG cards</div></div>
+      <div class="ws"><div class="ws-n">15</div><div class="ws-l">Session cards</div></div>
+      <div class="ws"><div class="ws-n">4</div><div class="ws-l">Days</div></div>
+    </div>
+
+    <div class="name-label">Your name</div>
+    <input class="name-input" id="name-input" type="text" placeholder="Enter your name..." maxlength="40" autocomplete="off">
+    <div class="name-hint">Stored only on your device. Private to you.</div>
+    <button class="start-btn" onclick="startApp()">Enter the deck</button>
+
+    <div class="arc-header">Programme arc</div>
+    <div class="arc-row"><div class="arc-dot" style="background:var(--red)"><div class="arc-day">Day 1</div><div class="arc-date">30 Mar</div></div><div><div class="arc-label">Self</div><div class="arc-sub">Welcome & icebreaker</div></div></div>
+    <div class="arc-row"><div class="arc-dot" style="background:var(--green)"><div class="arc-day">Day 2</div><div class="arc-date">31 Mar</div></div><div><div class="arc-label">System</div><div class="arc-sub">Ecosystem & stakeholders</div></div></div>
+    <div class="arc-row"><div class="arc-dot" style="background:var(--blue)"><div class="arc-day">Day 3</div><div class="arc-date">1 Apr</div></div><div><div class="arc-label">Street</div><div class="arc-sub">Field immersion & story</div></div></div>
+    <div class="arc-row"><div class="arc-dot" style="background:var(--black)"><div class="arc-day">Day 4</div><div class="arc-date">2 Apr</div></div><div><div class="arc-label">Story</div><div class="arc-sub">Integration & closing</div></div></div>
+  </div>
+</div>
+</div>
+
+<div class="screen" id="s-main">
+  <div class="topbar">
+    <div class="topbar-left">
+      <span class="topbar-logo">BSA Rome 2026</span>
+      <span class="topbar-name" id="display-name"></span>
+    </div>
+    <div class="progress-pill" id="progress-pill">0 / 45 filled</div>
+  </div>
+  <div class="tab-row">
+    <button class="tab on" onclick="showTab('cards',this)">Cards</button>
+    <button class="tab" onclick="showTab('programme',this)">Schedule</button>
+    <button class="tab" onclick="showTab('growth',this)">Growth</button>
+    <button class="tab" onclick="showTab('notes',this)">My notes</button>
+  </div>
+  <div class="content" id="tab-cards">
+    <div class="filter-row" id="filters"></div>
+    <div id="card-list"></div>
+  </div>
+  <div class="content" id="tab-programme" style="display:none"><div id="prog-content"></div></div>
+  <div class="content" id="tab-growth" style="display:none">
+    <div class="gt-subtab-row">
+      <button class="gt-subtab on" onclick="showGtTab('assess',this)">Assess</button>
+      <button class="gt-subtab" onclick="showGtTab('growth',this)">My growth</button>
+    </div>
+    <div id="gt-assess">
+      <div class="gt-day-row" id="gt-day-row"></div>
+      <div class="gt-radar-wrap">
+        <div class="gt-radar-title" id="gt-radar-title">Today's IDG profile</div>
+        <div class="gt-canvas-wrap"><canvas id="gt-radar"></canvas></div>
+        <div class="gt-legend">
+          <div class="gt-leg-item"><div class="gt-leg-dot" style="background:#FF9AB0"></div>Being</div>
+          <div class="gt-leg-item"><div class="gt-leg-dot" style="background:#0071FF"></div>Thinking</div>
+          <div class="gt-leg-item"><div class="gt-leg-dot" style="background:#FFDD00"></div>Relating</div>
+          <div class="gt-leg-item"><div class="gt-leg-dot" style="background:#00953C"></div>Collaborating</div>
+          <div class="gt-leg-item"><div class="gt-leg-dot" style="background:#66AAFF"></div>Acting</div>
+        </div>
+      </div>
+      <div class="gt-sliders" id="gt-sliders"></div>
+      <div class="gt-reflection-label">Daily reflection</div>
+      <textarea class="gt-reflection" id="gt-reflection" placeholder="What shifted in you today? What are you noticing?" rows="3"></textarea>
+      <button class="gt-save-btn" id="gt-save-btn" onclick="gtSave()">Save assessment</button>
+    </div>
+    <div id="gt-growth" style="display:none">
+      <div id="gt-growth-content"></div>
+    </div>
+  </div>
+  <div class="content" id="tab-notes" style="display:none">
+    <div class="saved-name" id="notes-name"></div>
+    <div id="notes-content"></div>
+  </div>
+</div>
+
+</div>
+<script>
+/* TSH brand-aligned category colors:
+   Using TSH secondary palette for category badges */
+const CAT={
+  'BEING':'#C4200A',        /* red */
+  'THINKING':'#00953C',     /* green */
+  'RELATING':'#0071FF',     /* blue */
+  'COLLABORATING':'#000000',/* black */
+  'ACTING':'#C4200A',       /* red */
+  'OBSERVATION':'#0071FF',  /* blue */
+  'FIELDWORK':'#00953C',    /* green */
+  'DAILY':'#67686A',        /* grey */
+  'COMMITMENT':'#000000'    /* black */
+};
+
+/* TSH brand colors for day themes */
+const DAYC={
+  'DAY 1':'#C4200A',  /* red */
+  'DAY 2':'#00953C',  /* green */
+  'DAY 3':'#0071FF',  /* blue */
+  'DAY 4':'#000000'   /* black */
+};
+
+/* Badge background tints mapped to TSH 60% palette */
+const CAT_BG={
+  'BEING':'#FF9AB0',
+  'THINKING':'#66BF8A',
+  'RELATING':'#66AAFF',
+  'COLLABORATING':'#A4A4A5',
+  'ACTING':'#FF9AB0',
+  'OBSERVATION':'#66AAFF',
+  'FIELDWORK':'#66BF8A',
+  'DAILY':'#A4A4A5',
+  'COMMITMENT':'#FFEB66'
+};
+
+const cards=[
+  {id:'c01',type:'IDG',cat:'BEING',skill:'Inner Compass',day:'DAY 1',title:'Why Buses Represent Democracy in Action',speaker:'Enrique Pe–alosa',dur:'TED á 14 min',reflect:'Close your eyes 60 sec. What is the one value you would never compromise Ñ even if your challenge required it?',url:'https://www.ted.com/talks/enrique_penalosa_why_buses_represent_democracy_in_action'},
+  {id:'c02',type:'IDG',cat:'BEING',skill:'Integrity & Authenticity',day:'DAY 1',title:'My Architectural Philosophy: Bring the Community into the Process',speaker:'Alejandro Aravena',dur:'TED á 16 min',reflect:'When did you last say "I don\'t know" in a professional context Ñ and what happened?',url:'https://www.ted.com/talks/alejandro_aravena_my_architectural_philosophy_bring_the_community_into_the_process'},
+  {id:'c03',type:'IDG',cat:'BEING',skill:'Openness & Learning Mindset',day:'DAY 1',title:'In Search of the Human Scale',speaker:'Jan Gehl',dur:'TEDxKEA á 15 min',reflect:'What belief did you arrive at BSA with that you are now willing to question?',url:'https://www.ted.com/speakers/jan_gehl'},
+  {id:'c04',type:'IDG',cat:'BEING',skill:'Self-Awareness',day:'DAY 2',title:'How Public Spaces Make Cities Work',speaker:'Amanda Burden',dur:'TED á 8 min',reflect:'What is the gap between how you see your challenge and how others experience it?',url:'https://www.ted.com/talks/amanda_burden_how_public_spaces_make_cities_work'},
+  {id:'c05',type:'IDG',cat:'BEING',skill:'Presence',day:'DAY 3',title:'Human AI Things Ñ Relationships, Designing Interruptions & Streams of Consciousness',speaker:'Iskander Smit',dur:'Humans+ AI Podcast á Ep. 18',reflect:'Find a quiet spot. For 3 minutes, only observe. Do not label, judge, or solve. What do you notice?',url:'https://humansplus.ai/podcast/iskander-smit-human-ai-things-relationships-designing-interruptions-intentions-streams-consciousness-ai-ac-ep18/'},
+  {id:'c06',type:'IDG',cat:'THINKING',skill:'Critical Thinking',day:'DAY 1',title:'Building a Park in the Sky',speaker:'Robert Hammond',dur:'TED á 6 min',reflect:'Take one obvious truth about your challenge. What evidence would disprove it?',url:'https://www.ted.com/talks/robert_hammond_building_a_park_in_the_sky'},
+  {id:'c07',type:'IDG',cat:'THINKING',skill:'Complexity Awareness',day:'DAY 2',title:'The Surprising Math of Cities and Corporations',speaker:'Geoffrey West',dur:'TED á 17 min',reflect:'Draw your challenge as a system. Remove one element. What collapses Ñ and what survives?',url:'https://www.ted.com/talks/geoffrey_west_the_surprising_math_of_cities_and_corporations'},
+  {id:'c08',type:'IDG',cat:'THINKING',skill:'Perspective Skills',day:'DAY 2',title:'The Danger of a Single Story',speaker:'Chimamanda Ngozi Adichie',dur:'TED á 19 min',reflect:'Name three people affected by your challenge who would disagree with your approach. Why?',url:'https://www.ted.com/talks/chimamanda_ngozi_adichie_the_danger_of_a_single_story'},
+  {id:'c09',type:'IDG',cat:'THINKING',skill:'Sense-Making',day:'DAY 3',title:'Medell’n Revisited',speaker:'99% Invisible',dur:'Podcast á 34 min',reflect:'What is the dominant story your organisation tells about your challenge? Who wrote that story?',url:'https://99percentinvisible.org/episode/medellinrevisited/'},
+  {id:'c10',type:'IDG',cat:'THINKING',skill:'Long-Term Orientation',day:'DAY 3',title:'How to Be a Good Ancestor',speaker:'Roman Krznaric',dur:'FUTURES Podcast á 45 min',reflect:'If your intervention succeeds in 5 years, what unintended consequence might emerge in 20?',url:'https://futurespodcast.net/episodes/22-romankrznaric'},
+  {id:'c11',type:'IDG',cat:'RELATING',skill:'Appreciation',day:'DAY 1',title:'How to Revive a Neighbourhood with Imagination, Beauty and Art',speaker:'Theaster Gates',dur:'TED á 17 min',reflect:'Name one person you met at BSA whose perspective genuinely surprised you. What did they see that you missed?',url:'https://www.ted.com/talks/theaster_gates_how_to_revive_a_neighborhood_with_imagination_beauty_and_art'},
+  {id:'c12',type:'IDG',cat:'RELATING',skill:'Connectedness',day:'DAY 2',title:'New York\'s Streets? Not So Mean Any More',speaker:'Janette Sadik-Khan',dur:'TED á 16 min',reflect:'Draw a line from your challenge to two others\'. Where do they intersect?',url:'https://www.ted.com/talks/janette_sadik_khan_new_york_s_streets_not_so_mean_any_more'},
+  {id:'c13',type:'IDG',cat:'RELATING',skill:'Humility',day:'DAY 2',title:'How to Build with Clay... and Community',speaker:'DiŽbŽdo Francis KŽrŽ',dur:'TED á 11 min',reflect:'What would change if you assumed the community already has the answer?',url:'https://www.ted.com/talks/diebedo_francis_kere_how_to_build_with_clay_and_community'},
+  {id:'c14',type:'IDG',cat:'RELATING',skill:'Empathy & Compassion',day:'DAY 2',title:'What If Gentrification Was About Healing Communities?',speaker:'Liz Ogbu',dur:'TED á 12 min',reflect:'Who bears the cost of your challenge and has never been asked how they feel?',url:'https://www.ted.com/speakers/liz_ogbu'},
+  {id:'c15',type:'IDG',cat:'COLLABORATING',skill:'Communication Skills',day:'DAY 2',title:'Why Buses Represent Democracy in Action',speaker:'Enrique Pe–alosa',dur:'TED á 14 min',reflect:'In your last disagreement, did you listen to understand Ñ or listen to respond?',url:'https://www.ted.com/talks/enrique_penalosa_why_buses_represent_democracy_in_action'},
+  {id:'c16',type:'IDG',cat:'COLLABORATING',skill:'Co-Creation Skills',day:'DAY 2',title:'My Architectural Philosophy',speaker:'Alejandro Aravena',dur:'TED á 16 min',reflect:'Who is missing from the table when decisions about your challenge are made?',url:'https://www.ted.com/talks/alejandro_aravena_my_architectural_philosophy_bring_the_community_into_the_process'},
+  {id:'c17',type:'IDG',cat:'COLLABORATING',skill:'Inclusive Mindset',day:'DAY 2',title:'Why I\'m an Architect That Designs for Social Impact',speaker:'Liz Ogbu',dur:'TEDx á 10 min',reflect:'Whose voice is systematically excluded from your challenge conversation Ñ and why?',url:'https://tedxmidatlantic.com/talks/liz-ogbu-why-im-an-architect-that-designs-for-social-impact-not-buildings/'},
+  {id:'c18',type:'IDG',cat:'COLLABORATING',skill:'Trust',day:'DAY 3',title:'How to Build (and Rebuild) Trust',speaker:'Frances Frei',dur:'TED á 15 min',reflect:'Who do you trust with your uncertainty Ñ not just your plans? Have you told them?',url:'https://www.ted.com/talks/frances_frei_how_to_build_and_rebuild_trust'},
+  {id:'c19',type:'IDG',cat:'COLLABORATING',skill:'Mobilisation Skills',day:'DAY 3',title:'How to Start a Movement',speaker:'Derek Sivers',dur:'TED á 3 min',reflect:'If you had 90 seconds to mobilise a room for your challenge, what would you say Ñ and what would you NOT say?',url:'https://www.ted.com/talks/derek_sivers_how_to_start_a_movement'},
+  {id:'c20',type:'IDG',cat:'ACTING',skill:'Courage',day:'DAY 3',title:'Greening the Ghetto',speaker:'Majora Carter',dur:'TED á 19 min',reflect:'What is the one thing you know needs to change Ñ but no one dares to say?',url:'https://www.ted.com/talks/majora_carter_s_tale_of_urban_renewal'},
+  {id:'c21',type:'IDG',cat:'ACTING',skill:'Creativity',day:'DAY 3',title:'Don\'t Build Your Home, Grow It!',speaker:'Mitchell Joachim',dur:'TED á 4 min',reflect:'If budget, politics, and technology were not constraints, what would you build?',url:'https://www.ted.com/talks/mitchell_joachim_don_t_build_your_home_grow_it'},
+  {id:'c22',type:'IDG',cat:'ACTING',skill:'Optimism',day:'DAY 4',title:'Mapping the Slums',speaker:'Erica Hagen',dur:'TEDx á 12 min',reflect:'Name one small, concrete thing that gives you hope about your challenge. Hold onto it.',url:'https://amara.org/videos/o2Uo3pWhJ7Br/info/mapping-the-slums-erica-hagen-tedxgateway/'},
+  {id:'c23',type:'IDG',cat:'ACTING',skill:'Perseverance',day:'DAY 4',title:'How to Revive a Neighbourhood with Imagination, Beauty and Art',speaker:'Theaster Gates',dur:'TED á 17 min',reflect:'What will you do on day 31 Ñ when the initial energy fades but the work remains?',url:'https://www.ted.com/talks/theaster_gates_how_to_revive_a_neighborhood_with_imagination_beauty_and_art'},
+  {id:'oa',type:'OBS',cat:'OBSERVATION',day:'DAY 1',title:'Case Study Ñ The High Line, New York',prompts:['The success story I heard:','The hidden cost I noticed:','The question it left me with:']},
+  {id:'ob',type:'OBS',cat:'OBSERVATION',day:'DAY 2',title:'Inspiration Ñ Lorenzo Fioramonti, NATIVA',prompts:['One idea that shifted something for me:','A question I want to bring to my challenge:']},
+  {id:'oc',type:'OBS',cat:'OBSERVATION',day:'DAY 2',title:'Session Ñ Ecosystem Mapping',prompts:['Describe my challenge ecosystem:','A connection I hadn\'t seen before:']},
+  {id:'od',type:'OBS',cat:'OBSERVATION',day:'DAY 2',title:'Session Ñ Stakeholder Power Mapping',prompts:['Most powerful actor:','Most excluded voice:','The tension I mapped:']},
+  {id:'oe',type:'OBS',cat:'OBSERVATION',day:'DAY 2',title:'Inspiration Ñ Luca Ballarini, STRATOSFERICA',prompts:['The example that resonated most:','How this connects to my challenge:']},
+  {id:'of',type:'OBS',cat:'OBSERVATION',day:'DAY 2',title:'Session Ñ Negotiation Role-Play, Spain',prompts:['The perspective hardest to inhabit:','What changed in my thinking:']},
+  {id:'og',type:'OBS',cat:'OBSERVATION',day:'DAY 2',title:'Session Ñ Empathy in Action, India',prompts:['What I made:','What my hands taught my head:']},
+  {id:'oh',type:'OBS',cat:'OBSERVATION',day:'DAY 3',title:'Inspiration Ñ Rosa Dinnissen',prompts:['The step I am missing:','One tactic I will try:']},
+  {id:'oi',type:'OBS',cat:'OBSERVATION',day:'DAY 3',title:'Inspiration Ñ Costanza De Stefani, C40 Cities',prompts:['The collaboration model that impressed me:','What barrier does my city face?']},
+  {id:'oj',type:'OBS',cat:'OBSERVATION',day:'DAY 3',title:'Gallery Walk Ñ Show & Tell',prompts:['Something that stuck with me:','Something that surprised me:','Something I want to steal:']},
+  {id:'ok',type:'OBS',cat:'OBSERVATION',day:'DAY 3',title:'Case Study Ñ Prototype for Agency, Kenya',prompts:['The act of courage in this story:','What small act of courage could I take?']},
+  {id:'fi',type:'FIELD',cat:'FIELDWORK',day:'DAY 3',title:'Field Immersion Walk',prompts:['Something unexpected I noticed:','A person whose story I want to know:','A tension between what the city says and does:']},
+  {id:'d1m',type:'DAILY',cat:'DAILY',day:'DAY 1',title:'Morning Ñ Day 1',prompts:['I arrive with this question:','I am willing to let go of:']},
+  {id:'d1e',type:'DAILY',cat:'DAILY',day:'DAY 1',title:'Evening Ñ Day 1',prompts:['Something that shifted in me today:','A connection I want to follow up:']},
+  {id:'d2m',type:'DAILY',cat:'DAILY',day:'DAY 2',title:'Morning Ñ Day 2',prompts:['What I am carrying from yesterday:','What I want to pay attention to today:']},
+  {id:'d2e',type:'DAILY',cat:'DAILY',day:'DAY 2',title:'Evening Ñ Day 2',prompts:['The moment of most energy today:','The moment of most resistance:']},
+  {id:'d3m',type:'DAILY',cat:'DAILY',day:'DAY 3',title:'Morning Ñ Day 3',prompts:['What I hope to find in the city:','What I am afraid to see:']},
+  {id:'d3e',type:'DAILY',cat:'DAILY',day:'DAY 3',title:'Evening Ñ Day 3',prompts:['What the street taught me that the classroom could not:','One thing I will not forget:']},
+  {id:'d4m',type:'DAILY',cat:'DAILY',day:'DAY 4',title:'Morning Ñ Day 4',prompts:['The most important thing I am taking home:','The question I still cannot answer:']},
+  {id:'co',type:'COMMIT',cat:'COMMITMENT',day:'DAY 4',title:'30-Day Commitment',prompts:['My commitment:','First step within 7 days:','My accountability partner:','We will check in on:']},
+];
+
+const prog=[
+  {day:'DAY 1',date:'30 Mar',theme:'Self',col:'#C4200A',bg:'#FF9AB0',items:[{t:'Check-in & Hub Tour',s:'13:00Ð16:30'},{t:'Read the Room Ñ Icebreaker',s:'16:30'},{t:'Case Study: The High Line',s:'17:00'},{t:'Dinner',s:'19:30'}]},
+  {day:'DAY 2',date:'31 Mar',theme:'System',col:'#00953C',bg:'#66BF8A',items:[{t:'Lorenzo Fioramonti Ñ Being Future Proof',s:'09:15'},{t:'Ecosystem Mapping + Challenge Briefing',s:'10:00'},{t:'Stakeholder Power Mapping + Gallery Walk',s:'11:30'},{t:'Luca Ballarini Ñ Urban Agency',s:'14:00'},{t:'Negotiation Role-Play Ñ Spain',s:'15:00'},{t:'Empathy in Action Ñ India',s:'16:15'}]},
+  {day:'DAY 3',date:'1 Apr',theme:'Street',col:'#0071FF',bg:'#66AAFF',items:[{t:'Yoga with Martina',s:'07:00'},{t:'Field Briefing Ñ Street to Story',s:'09:15'},{t:'Field Immersion Walk',s:'11:30'},{t:'Rosa Dinnissen Ñ Public Affairs',s:'12:15'},{t:'Costanza De Stefani Ñ C40 Cities',s:'14:15'},{t:'Gallery Walk + Prototype for Agency',s:'14:45'},{t:'Tram dinner',s:'19:30'}]},
+  {day:'DAY 4',date:'2 Apr',theme:'Story',col:'#000000',bg:'#A4A4A5',items:[{t:'GYM training',s:'07:00'},{t:'Final Reflections with Carlos Moreno',s:'09:00'},{t:'Changemakers Stage Ñ Ex Dogana',s:'10:30'},{t:'Panel Discussion',s:'11:10'},{t:'Graduation Ceremony',s:'12:30'}]},
+];
+
+let notes={},activeFilter='ALL';
+try{notes=JSON.parse(localStorage.getItem('bsa_rome_notes')||'{}');}catch(e){}
+
+function countFilled(){let n=0;cards.forEach(c=>{const v=notes[c.id]||{};if(Object.values(v).some(x=>x&&x.trim()))n++;});return n;}
+function updateProgress(){const el=document.getElementById('progress-pill');if(el)el.textContent=countFilled()+' / '+cards.length+' filled';}
+function saveNote(id,key,val){if(!notes[id])notes[id]={};notes[id][key]=val;try{localStorage.setItem('bsa_rome_notes',JSON.stringify(notes));}catch(e){}updateProgress();}
+
+function startApp(){
+  const name=document.getElementById('name-input').value.trim()||'Participant';
+  document.getElementById('display-name').textContent='á '+name;
+  document.getElementById('notes-name').textContent=name+"'s notes";
+  try{localStorage.setItem('bsa_rome_name',name);}catch(e){}
+  document.getElementById('s-welcome').classList.remove('active');
+  document.getElementById('s-main').classList.add('active');
+  buildFilters();renderCards();renderProg();updateProgress();
+}
+
+let gtInited=false;
+function showTab(t,el){
+  ['cards','programme','notes','growth'].forEach(x=>{const e=document.getElementById('tab-'+x);if(e)e.style.display='none';});
+  document.getElementById('tab-'+t).style.display='block';
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  if(t==='notes')renderNotes();
+  if(t==='growth'){if(!gtInited){gtInited=true;requestAnimationFrame(gtInit);}else{requestAnimationFrame(gtDrawRadar);}}
+}
+
+function buildFilters(){
+  const fil=document.getElementById('filters');
+  const opts=['ALL','DAY 1','DAY 2','DAY 3','DAY 4','IDG','OBS','DAILY','FIELD','COMMIT'];
+  fil.innerHTML=opts.map(f=>`<button class="filt${f==='ALL'?' on':''}" onclick="setFilter('${f}',this)">${f==='OBS'?'Observation':f==='COMMIT'?'Commitment':f==='FIELD'?'Fieldwork':f}</button>`).join('');
+}
+
+function setFilter(f,el){activeFilter=f;document.querySelectorAll('.filt').forEach(b=>b.classList.remove('on'));el.classList.add('on');renderCards();}
+
+function renderCards(){
+  const list=document.getElementById('card-list');
+  const filtered=cards.filter(c=>{if(activeFilter==='ALL')return true;if(['DAY 1','DAY 2','DAY 3','DAY 4'].includes(activeFilter))return c.day===activeFilter;return c.type===activeFilter;});
+  const byDay={};filtered.forEach(c=>{if(!byDay[c.day])byDay[c.day]=[];byDay[c.day].push(c);});
+  const dl={'DAY 1':'30 Mar Ñ Self','DAY 2':'31 Mar Ñ System','DAY 3':'1 Apr Ñ Street','DAY 4':'2 Apr Ñ Story'};
+  list.innerHTML=Object.entries(byDay).map(([day,dc])=>`<div class="section-hdr">${day} á ${dl[day]||''}</div>${dc.map(c=>renderCard(c)).join('')}`).join('');
+}
+
+function renderCard(c){
+  const col=CAT[c.cat]||'#67686A';
+  const bg=CAT_BG[c.cat]||'#A4A4A5';
+  const sv=notes[c.id]||{};
+  const filled=Object.values(sv).some(v=>v&&v.trim());
+  const dot=filled?`<span class="filled-dot"></span>`:'';
+
+  if(c.type==='IDG'){
+    return `<div class="card">
+      <div class="card-top">
+        <span class="cat-badge" style="background:${bg};color:${col==='#000000'?'#000':col}">${c.cat} á ${c.skill}</span>
+        <span class="day-tag">${dot}#${c.id.replace('c','')}/23</span>
+      </div>
+      <div class="card-body">
+        <div class="card-title">${c.title}</div>
+        <div class="card-speaker" style="color:${col}">${c.speaker}</div>
+        <div class="card-dur">${c.dur}</div>
+        ${YT_IDS[c.id] ? `
+          <div class="watch-btn-row">
+            <button class="watch-btn" onclick="showEmbed('${c.id}')"><span class="play-tri"></span>Watch here</button>
+            <a class="watch-btn-ext" href="${c.url}" target="_blank">?</a>
+          </div>
+          <div class="yt-container" id="yt-${c.id}">
+            <div class="yt-poster" id="yt-poster-${c.id}" onclick="playEmbed('${c.id}','${c.url}')">
+              <img src="https://img.youtube.com/vi/${YT_IDS[c.id]}/hqdefault.jpg" alt="Video thumbnail">
+              <div class="yt-play"><div class="yt-play-tri"></div></div>
+            </div>
+            <div class="yt-fallback" id="yt-fallback-${c.id}">
+              <span>Video couldn't load here.</span>
+              <a href="${c.url}" target="_blank">Watch on YouTube ?</a>
+            </div>
+          </div>
+        ` : `<a class="watch-btn" href="${c.url}" target="_blank"><span class="play-tri"></span>Watch / Listen</a>`}
+        <hr class="divider">
+        <div class="reflect-lbl" style="color:${col}">Reflect</div>
+        <div class="reflect-q">${c.reflect}</div>
+        <div class="resp-lbl">My response</div>
+        <textarea class="resp-area" placeholder="Write your thoughts..." oninput="saveNote('${c.id}','r',this.value)">${sv['r']||''}</textarea>
+      </div>
+    </div>`;
+  }
+
+  const prompts=(c.prompts||[]).map((p,i)=>`<div class="obs-prompt"><div class="obs-plbl" style="color:${col}">${p}</div><textarea class="resp-area" style="min-height:50px" placeholder="Your notes..." oninput="saveNote('${c.id}','p${i}',this.value)">${sv['p'+i]||''}</textarea></div>`).join('');
+  return `<div class="card">
+    <div class="card-top">
+      <span class="cat-badge" style="background:${bg};color:${col==='#000000'?'#000':col}">${c.cat}</span>
+      <span class="day-tag">${dot}${c.day}</span>
+    </div>
+    <div class="card-body">
+      <div class="card-title" style="margin-bottom:10px">${c.title}</div>
+      <hr class="divider">${prompts}
+    </div>
+  </div>`;
+}
+
+function renderProg(){
+  document.getElementById('prog-content').innerHTML=prog.map(d=>`<div class="prog-block">
+    <div class="prog-header" style="background:${d.bg};border:2px solid ${d.col}">
+      <div style="font-size:11px;font-weight:700;color:${d.col};letter-spacing:-.01em">${d.day} á ${d.date}</div>
+      <div style="font-size:16px;font-weight:800;color:var(--black);letter-spacing:-.02em">${d.theme}</div>
+    </div>
+    ${d.items.map(i=>`<div class="prog-row"><div class="prog-dot" style="background:${d.col}"></div><div><div class="prog-t">${i.t}</div><div class="prog-s">${i.s}</div></div></div>`).join('')}
+  </div>`).join('');
+}
+
+function renderNotes(){
+  const el=document.getElementById('notes-content');
+  const entries=cards.filter(c=>{const v=notes[c.id]||{};return Object.values(v).some(x=>x&&x.trim());});
+  if(!entries.length){el.innerHTML='<div class="saved-empty">Your responses will appear here as you fill in cards.<br><br>Tap any card and start writing.</div>';return;}
+  el.innerHTML=entries.map(c=>{
+    const col=CAT[c.cat]||'#67686A';
+    const bg=CAT_BG[c.cat]||'#A4A4A5';
+    const sv=notes[c.id]||{};
+    const content=Object.entries(sv).filter(([k,v])=>v&&v.trim()).map(([k,v])=>{
+      const label=k==='r'?'Reflection':(c.prompts||[])[parseInt(k.replace('p',''))]||k;
+      return `<div style="margin-bottom:10px"><div style="font-size:10px;color:${col};font-weight:600;margin-bottom:3px;letter-spacing:.03em">${label}</div><div style="font-size:13px;color:var(--black);line-height:1.5">${v}</div></div>`;
+    }).join('');
+    return `<div class="card" style="margin-bottom:10px"><div class="card-top"><span class="cat-badge" style="background:${bg};color:${col==='#000000'?'#000':col}">${c.cat}</span><span class="day-tag">${c.day}</span></div><div class="card-body"><div class="card-title" style="margin-bottom:10px">${c.title}</div>${content}</div></div>`;
+  }).join('');
+}
+
+try{const s=localStorage.getItem('bsa_rome_name');if(s)document.getElementById('name-input').value=s;}catch(e){}
+document.getElementById('name-input').addEventListener('keydown',e=>{if(e.key==='Enter')startApp();});
+
+// ???????????????????????????????????????????????????????
+// GROWTH TRACKER
+// ???????????????????????????????????????????????????????
+
+const GT_DIMS = [
+  {key:'being',      label:'Being',        desc:'Relationship to self Ñ presence, values, openness',     col:'#FF9AB0'},
+  {key:'thinking',   label:'Thinking',     desc:'Cognitive skills Ñ perspective, complexity, sense-making',col:'#0071FF'},
+  {key:'relating',   label:'Relating',     desc:'Caring for others Ñ empathy, humility, connectedness',  col:'#FFDD00'},
+  {key:'collaborating',label:'Collaborating',desc:'Social skills Ñ trust, communication, inclusion',    col:'#00953C'},
+  {key:'acting',     label:'Acting',       desc:'Enabling change Ñ courage, creativity, perseverance',   col:'#66AAFF'},
+];
+
+const GT_DAYS = [
+  {num:1, label:'Day 1', date:'30 Mar', theme:'Self'},
+  {num:2, label:'Day 2', date:'31 Mar', theme:'System'},
+  {num:3, label:'Day 3', date:'1 Apr',  theme:'Street'},
+  {num:4, label:'Day 4', date:'2 Apr',  theme:'Story'},
+];
+
+const GT_TICKS = ['Novice','Emerging','Developing','Strong','Mastery'];
+
+let gtDay = 1;
+let gtScores = {being:3,thinking:3,relating:3,collaborating:3,acting:3};
+let gtAssessments = {};
+let gtSubTab = 'assess';
+
+try { gtAssessments = JSON.parse(localStorage.getItem('bsa_gt_assessments')||'{}'); } catch(e){}
+
+function gtLoad() {
+  const saved = gtAssessments[gtDay];
+  if(saved) {
+    gtScores = {being:saved.being,thinking:saved.thinking,relating:saved.relating,collaborating:saved.collaborating,acting:saved.acting};
+    document.getElementById('gt-reflection').value = saved.reflection || '';
+  } else {
+    gtScores = {being:3,thinking:3,relating:3,collaborating:3,acting:3};
+    document.getElementById('gt-reflection').value = '';
+  }
+  gtBuildSliders();
+  gtDrawRadar();
+  gtUpdateDayBtns();
+  const btn = document.getElementById('gt-save-btn');
+  if(btn){ btn.textContent = saved ? 'Update assessment' : 'Save assessment'; btn.classList.remove('saved'); }
+}
+
+function gtBuildDayRow() {
+  const row = document.getElementById('gt-day-row');
+  if(!row) return;
+  row.innerHTML = GT_DAYS.map(d => {
+    const done = !!gtAssessments[d.num];
+    return `<button class="gt-day-btn${d.num===gtDay?' on':''}${done?' done':''}" onclick="gtSetDay(${d.num})">${done?'? ':''}${d.label}<span style="display:block;font-size:9px;opacity:.7;font-weight:500">${d.date}</span></button>`;
+  }).join('');
+}
+
+function gtUpdateDayBtns() {
+  document.querySelectorAll('.gt-day-btn').forEach((btn,i) => {
+    const d = GT_DAYS[i];
+    const done = !!gtAssessments[d.num];
+    btn.className = 'gt-day-btn' + (d.num===gtDay?' on':'') + (done?' done':'');
+    btn.innerHTML = `${done?'? ':''}${d.label}<span style="display:block;font-size:9px;opacity:.7;font-weight:500">${d.date}</span>`;
+  });
+}
+
+function gtSetDay(n) {
+  gtDay = n;
+  gtLoad();
+}
+
+function gtBuildSliders() {
+  const wrap = document.getElementById('gt-sliders');
+  if(!wrap) return;
+  wrap.innerHTML = GT_DIMS.map(d => `
+    <div class="gt-slider-row">
+      <div class="gt-slider-head">
+        <span class="gt-slider-label">${d.label}</span>
+        <span class="gt-slider-val" id="gtv-${d.key}" style="color:${d.col}">${gtScores[d.key]}</span>
+      </div>
+      <div class="gt-slider-desc">${d.desc}</div>
+      <input type="range" min="1" max="5" step="1" value="${gtScores[d.key]}"
+        class="gt-slider" id="gts-${d.key}"
+        style="background:linear-gradient(to right,${d.col} 0%,${d.col} ${(gtScores[d.key]-1)*25}%,#e0e0e0 ${(gtScores[d.key]-1)*25}%,#e0e0e0 100%)"
+        oninput="gtSlide('${d.key}',this.value,this,'${d.col}')">
+      <div class="gt-slider-ticks">${GT_TICKS.map(t=>`<span>${t}</span>`).join('')}</div>
+    </div>`).join('');
+}
+
+function gtSlide(key, val, el, col) {
+  gtScores[key] = parseInt(val);
+  const v = document.getElementById('gtv-'+key);
+  if(v) v.textContent = val;
+  const pct = (parseInt(val)-1)*25;
+  el.style.background = `linear-gradient(to right,${col} 0%,${col} ${pct}%,#e0e0e0 ${pct}%,#e0e0e0 100%)`;
+  gtDrawRadar();
+}
+
+function gtSave() {
+  const reflection = document.getElementById('gt-reflection').value;
+  gtAssessments[gtDay] = { ...gtScores, reflection, day: GT_DAYS[gtDay-1].label, date: GT_DAYS[gtDay-1].date };
+  try { localStorage.setItem('bsa_gt_assessments', JSON.stringify(gtAssessments)); } catch(e){}
+  const btn = document.getElementById('gt-save-btn');
+  if(btn){ btn.textContent = 'Saved!'; btn.classList.add('saved'); setTimeout(()=>{ btn.textContent='Update assessment'; btn.classList.remove('saved'); },1800); }
+  gtUpdateDayBtns();
+}
+
+// ?? Radar chart via canvas ??????????????????????????????????????????
+function gtDrawRadar(compareData) {
+  const canvas = document.getElementById('gt-radar');
+  if(!canvas) return;
+  const wrap = canvas.parentElement;
+  const size = wrap.offsetWidth || 300;
+  canvas.width = size;
+  canvas.height = size * 0.85;
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const cx = W/2, cy = H/2 + 10;
+  const r = Math.min(W,H)*0.35;
+  const n = GT_DIMS.length;
+  ctx.clearRect(0,0,W,H);
+
+  // Grid circles
+  for(let g=1;g<=5;g++){
+    ctx.beginPath();
+    for(let i=0;i<n;i++){
+      const a = (i/n)*Math.PI*2 - Math.PI/2;
+      const gr = r*(g/5);
+      const x = cx + Math.cos(a)*gr, y = cy + Math.sin(a)*gr;
+      i===0 ? ctx.moveTo(x,y) : ctx.lineTo(x,y);
+    }
+    ctx.closePath();
+    ctx.strokeStyle = 'rgba(255,255,255,0.12)';
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+  }
+
+  // Axes
+  for(let i=0;i<n;i++){
+    const a = (i/n)*Math.PI*2 - Math.PI/2;
+    ctx.beginPath();
+    ctx.moveTo(cx,cy);
+    ctx.lineTo(cx+Math.cos(a)*r, cy+Math.sin(a)*r);
+    ctx.strokeStyle = 'rgba(255,255,255,0.15)';
+    ctx.lineWidth = 0.8;
+    ctx.stroke();
+  }
+
+  // Compare polygon (Day 1 ghost) if provided
+  if(compareData){
+    ctx.beginPath();
+    GT_DIMS.forEach((d,i)=>{
+      const a=(i/n)*Math.PI*2-Math.PI/2;
+      const rv=r*(compareData[d.key]/5);
+      const x=cx+Math.cos(a)*rv, y=cy+Math.sin(a)*rv;
+      i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+    });
+    ctx.closePath();
+    ctx.fillStyle='rgba(102,170,255,0.12)';
+    ctx.fill();
+    ctx.strokeStyle='rgba(102,170,255,0.5)';
+    ctx.lineWidth=1.5;
+    ctx.stroke();
+  }
+
+  // Current polygon
+  ctx.beginPath();
+  GT_DIMS.forEach((d,i)=>{
+    const a=(i/n)*Math.PI*2-Math.PI/2;
+    const rv=r*(gtScores[d.key]/5);
+    const x=cx+Math.cos(a)*rv, y=cy+Math.sin(a)*rv;
+    i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+  });
+  ctx.closePath();
+  ctx.fillStyle='rgba(255,154,176,0.22)';
+  ctx.fill();
+  ctx.strokeStyle='#FF9AB0';
+  ctx.lineWidth=2;
+  ctx.stroke();
+
+  // Dots on current
+  GT_DIMS.forEach((d,i)=>{
+    const a=(i/n)*Math.PI*2-Math.PI/2;
+    const rv=r*(gtScores[d.key]/5);
+    const x=cx+Math.cos(a)*rv, y=cy+Math.sin(a)*rv;
+    ctx.beginPath();
+    ctx.arc(x,y,4,0,Math.PI*2);
+    ctx.fillStyle=d.col;
+    ctx.fill();
+  });
+
+  // Labels
+  ctx.font = `600 11px Rubik,system-ui,sans-serif`;
+  GT_DIMS.forEach((d,i)=>{
+    const a=(i/n)*Math.PI*2-Math.PI/2;
+    const lx=cx+Math.cos(a)*(r+22), ly=cy+Math.sin(a)*(r+22);
+    ctx.fillStyle='rgba(255,255,255,0.85)';
+    ctx.textAlign='center';
+    ctx.textBaseline='middle';
+    ctx.fillText(d.label, lx, ly);
+  });
+}
+
+// ?? Growth view ????????????????????????????????????????????????????
+function gtRenderGrowth() {
+  const el = document.getElementById('gt-growth-content');
+  if(!el) return;
+  const days = Object.keys(gtAssessments).map(Number).sort((a,b)=>a-b);
+
+  if(days.length < 1){
+    el.innerHTML = '<div class="gt-growth-empty">Complete at least one assessment to see your growth.</div>';
+    return;
+  }
+
+  const first = gtAssessments[days[0]];
+  const latest = gtAssessments[days[days.length-1]];
+  const isMulti = days.length > 1;
+
+  // Temporarily swap gtScores to latest for radar draw
+  const prevScores = {...gtScores};
+  gtScores = {being:latest.being,thinking:latest.thinking,relating:latest.relating,collaborating:latest.collaborating,acting:latest.acting};
+
+  let html = '';
+
+  // Radar
+  html += `<div class="gt-radar-wrap">
+    <div class="gt-radar-title">${isMulti ? 'Day 1 vs latest' : 'Your current IDG profile'}</div>
+    <div class="gt-canvas-wrap"><canvas id="gt-growth-radar"></canvas></div>
+    <div class="gt-legend">
+      <div class="gt-leg-item"><div class="gt-leg-dot" style="background:#FF9AB0"></div>Current</div>
+      ${isMulti?'<div class="gt-leg-item"><div class="gt-leg-dot" style="background:#66AAFF;opacity:.7"></div>Day 1</div>':''}
+    </div>
+  </div>`;
+
+  // Change grid
+  if(isMulti){
+    html += `<div class="gt-change-grid">`;
+    GT_DIMS.forEach(d=>{
+      const diff = latest[d.key] - first[d.key];
+      const cls = diff>0?'pos':diff<0?'neg':'neu';
+      html += `<div class="gt-change-cell">
+        <div class="gt-change-dim">${d.label.slice(0,5)}</div>
+        <div class="gt-change-val ${cls}">${diff>0?'+':''}${diff}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+
+  // Per-day score bars
+  html += `<div style="margin-bottom:16px">`;
+  days.forEach(dn=>{
+    const a = gtAssessments[dn];
+    const dc = ['#C4200A','#00953C','#0071FF','#000000'][dn-1]||'#000';
+    html += `<div style="background:#f5f5f5;border:2px solid #000;border-radius:12px;padding:12px 14px;margin-bottom:8px">
+      <div style="font-size:10px;font-weight:700;color:${dc};letter-spacing:.04em;text-transform:uppercase;margin-bottom:8px">${a.day} á ${a.date}</div>
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:4px">
+        ${GT_DIMS.map(d=>`
+          <div style="text-align:center">
+            <div style="font-size:9px;color:#67686A;font-weight:600;margin-bottom:3px;text-transform:uppercase">${d.label.slice(0,4)}</div>
+            <div style="font-size:16px;font-weight:800;color:${d.col};">${a[d.key]}</div>
+            <div style="font-size:8px;color:#67686A">${['','Novice','Emerging','Developing','Strong','Mastery'][a[d.key]]}</div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  });
+  html += `</div>`;
+
+  // Reflections
+  const withReflections = days.filter(dn=>gtAssessments[dn].reflection);
+  if(withReflections.length){
+    html += `<div class="gt-reflections-title">Your reflections</div>`;
+    withReflections.forEach(dn=>{
+      const a=gtAssessments[dn];
+      html+=`<div class="gt-reflection-card"><div class="gt-reflection-day">${a.day} á ${a.date}</div><div class="gt-reflection-text">${a.reflection}</div></div>`;
+    });
+  }
+
+  el.innerHTML = html;
+
+  // Restore scores and draw growth radar
+  gtScores = {being:latest.being,thinking:latest.thinking,relating:latest.relating,collaborating:latest.collaborating,acting:latest.acting};
+  requestAnimationFrame(()=>{
+    const gc = document.getElementById('gt-growth-radar');
+    if(gc){
+      const wrap = gc.parentElement;
+      const size = wrap.offsetWidth || 300;
+      gc.width=size; gc.height=size*0.85;
+      const ctx2=gc.getContext('2d');
+      ctx2.clearRect(0,0,gc.width,gc.height);
+      if(isMulti){
+        const firstScores={being:first.being,thinking:first.thinking,relating:first.relating,collaborating:first.collaborating,acting:first.acting};
+        gtDrawRadarOn(gc,ctx2,gtScores,firstScores);
+      } else {
+        gtDrawRadarOn(gc,ctx2,gtScores,null);
+      }
+    }
+    gtScores = prevScores;
+  });
+}
+
+function gtDrawRadarOn(canvas,ctx,scores,compareScores){
+  const W=canvas.width,H=canvas.height,cx=W/2,cy=H/2+10;
+  const r=Math.min(W,H)*0.35,n=GT_DIMS.length;
+  ctx.clearRect(0,0,W,H);
+  for(let g=1;g<=5;g++){
+    ctx.beginPath();
+    for(let i=0;i<n;i++){const a=(i/n)*Math.PI*2-Math.PI/2,gr=r*(g/5);i===0?ctx.moveTo(cx+Math.cos(a)*gr,cy+Math.sin(a)*gr):ctx.lineTo(cx+Math.cos(a)*gr,cy+Math.sin(a)*gr);}
+    ctx.closePath();ctx.strokeStyle='rgba(0,0,0,0.08)';ctx.lineWidth=0.8;ctx.stroke();
+  }
+  for(let i=0;i<n;i++){const a=(i/n)*Math.PI*2-Math.PI/2;ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);ctx.strokeStyle='rgba(0,0,0,0.1)';ctx.lineWidth=0.8;ctx.stroke();}
+  if(compareScores){
+    ctx.beginPath();
+    GT_DIMS.forEach((d,i)=>{const a=(i/n)*Math.PI*2-Math.PI/2,rv=r*(compareScores[d.key]/5);i===0?ctx.moveTo(cx+Math.cos(a)*rv,cy+Math.sin(a)*rv):ctx.lineTo(cx+Math.cos(a)*rv,cy+Math.sin(a)*rv);});
+    ctx.closePath();ctx.fillStyle='rgba(102,170,255,0.15)';ctx.fill();ctx.strokeStyle='rgba(102,170,255,0.6)';ctx.lineWidth=1.5;ctx.stroke();
+  }
+  ctx.beginPath();
+  GT_DIMS.forEach((d,i)=>{const a=(i/n)*Math.PI*2-Math.PI/2,rv=r*(scores[d.key]/5);i===0?ctx.moveTo(cx+Math.cos(a)*rv,cy+Math.sin(a)*rv):ctx.lineTo(cx+Math.cos(a)*rv,cy+Math.sin(a)*rv);});
+  ctx.closePath();ctx.fillStyle='rgba(255,154,176,0.25)';ctx.fill();ctx.strokeStyle='#FF9AB0';ctx.lineWidth=2;ctx.stroke();
+  GT_DIMS.forEach((d,i)=>{const a=(i/n)*Math.PI*2-Math.PI/2,rv=r*(scores[d.key]/5);ctx.beginPath();ctx.arc(cx+Math.cos(a)*rv,cy+Math.sin(a)*rv,4,0,Math.PI*2);ctx.fillStyle=d.col;ctx.fill();});
+  ctx.font='600 11px Rubik,system-ui,sans-serif';
+  GT_DIMS.forEach((d,i)=>{const a=(i/n)*Math.PI*2-Math.PI/2;ctx.fillStyle='rgba(0,0,0,0.75)';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(d.label,cx+Math.cos(a)*(r+22),cy+Math.sin(a)*(r+22));});
+}
+
+function showGtTab(t, el){
+  document.getElementById('gt-assess').style.display = t==='assess'?'block':'none';
+  document.getElementById('gt-growth').style.display = t==='growth'?'block':'none';
+  document.querySelectorAll('.gt-subtab').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  gtSubTab = t;
+  if(t==='growth') gtRenderGrowth();
+}
+
+function gtInit(){
+  gtBuildDayRow();
+  gtLoad();
+  requestAnimationFrame(gtDrawRadar);
+}
+
+
+// YouTube embed IDs per card
+const YT_IDS = {
+  'c01':'q2gn2JoBP30','c02':'o0I0Poe3qlg','c03':'Cgw9oHDfJ4k',
+  'c04':'uBMTBhkaraE','c06':'3nFKwkRqZjQ','c07':'wsOLRY93nkk',
+  'c08':'D9Ihs241zeg','c11':'RQOM6Ry0ZrY','c12':'LiDCpJCgz64',
+  'c13':'2dLBElP2jqs','c14':'M5PiTCwoQRo','c15':'q2gn2JoBP30',
+  'c16':'o0I0Poe3qlg','c18':'pVeq-0dIqpk','c19':'V74AxCqOTvg',
+  'c20':'YMtKL3Keh_M','c22':'lVkyBf_TM9s','c23':'RQOM6Ry0ZrY'
+};
+
+function showEmbed(cardId) {
+  const container = document.getElementById('yt-'+cardId);
+  if(!container) return;
+  if(container.classList.contains('visible')) {
+    // Toggle off: restore poster, remove iframe
+    const poster = document.getElementById('yt-poster-'+cardId);
+    const fallback = document.getElementById('yt-fallback-'+cardId);
+    const iframe = container.querySelector('iframe');
+    if(iframe) iframe.remove();
+    if(poster) poster.style.display = 'flex';
+    if(fallback) fallback.classList.remove('visible');
+    container.classList.remove('visible');
+  } else {
+    container.classList.add('visible');
+  }
+}
+
+function playEmbed(cardId, fallbackUrl) {
+  const ytId = YT_IDS[cardId];
+  if(!ytId) { window.open(fallbackUrl,'_blank'); return; }
+
+  const container = document.getElementById('yt-'+cardId);
+  const poster    = document.getElementById('yt-poster-'+cardId);
+  const fallback  = document.getElementById('yt-fallback-'+cardId);
+  if(!container || !poster || !fallback) return;
+
+  // Hide poster, inject iframe
+  poster.style.display = 'none';
+  const iframe = document.createElement('iframe');
+  iframe.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1`;
+  iframe.allow = 'autoplay; encrypted-media; fullscreen';
+  iframe.allowFullscreen = true;
+
+  // 6-second fallback timer Ñ only fires if onload never called
+  let loaded = false;
+  const timer = setTimeout(() => {
+    if(!loaded) {
+      iframe.remove();
+      fallback.classList.add('visible');
+    }
+  }, 6000);
+
+  iframe.onload = () => {
+    loaded = true;
+    clearTimeout(timer);
+    // onload fires normally for cross-origin embeds Ñ no contentDocument check
+  };
+
+  container.appendChild(iframe);
+}
+
+</script>
+</body>
+</html>
