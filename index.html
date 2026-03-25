@@ -682,7 +682,10 @@ const CAT={
   'OBSERVATION':'#0071FF',  /* blue */
   'FIELDWORK':'#00953C',    /* green */
   'DAILY':'#67686A',        /* grey */
-  'COMMITMENT':'#000000'    /* black */
+  'COMMITMENT':'#000000',   /* black */
+  'ACTIVITY':'#00953C',
+  'FIELD':'#00953C',
+  'REFERENCE':'#67686A'
 };
 
 /* TSH brand colors for day themes */
@@ -703,7 +706,10 @@ const CAT_BG={
   'OBSERVATION':'#66AAFF',
   'FIELDWORK':'#66BF8A',
   'DAILY':'#A4A4A5',
-  'COMMITMENT':'#FFEB66'
+  'COMMITMENT':'#FFEB66',
+  'ACTIVITY':'#66BF8A',
+  'FIELD':'#66BF8A',
+  'REFERENCE':'#A4A4A5'
 };
 
 const cards=[
@@ -742,6 +748,30 @@ const cards=[
   {id:'oj',type:'OBS',cat:'OBSERVATION',day:'DAY 3',title:'Gallery Walk — Show & Tell',prompts:['Something that stuck with me:','Something that surprised me:','Something I want to steal:']},
   {id:'ok',type:'OBS',cat:'OBSERVATION',day:'DAY 3',title:'Case Study — Prototype for Agency, Kenya',prompts:['The act of courage in this story:','What small act of courage could I take?']},
   {id:'fi',type:'FIELD',cat:'FIELDWORK',day:'DAY 3',title:'Field Immersion Walk',prompts:['Something unexpected I noticed:','A person whose story I want to know:','A tension between what the city says and does:']},
+  {id:'ac-eco',type:'ACTIVITY',cat:'ACTIVITY',day:'DAY 2',title:'Ecosystem Mapping — Your Challenge\'s System',dur:'60 min',
+   steps:['Step 1 — Centre (2 min): Place your challenge at the centre of the A2 sheet. Write it as a single sentence.','Step 2 — Stakeholders (12 min): Map every actor around it. Who is affected? Who decides? Who funds? Who blocks? Who is invisible? One sticky note per actor.','Step 3 — Connections (8 min): Draw arrows between stakeholders. Who influences whom? Where does money flow? Where does information flow? Where does trust break down?','Step 4 — Empathy Gap (5 min): Circle the biggest disconnect between decision-makers and those most affected. Mark it with a red dot.','Step 5 — Peer Review (20 min): Swap your map with a partner from a different challenge domain. Spend 10 minutes reviewing each other\'s maps. Ask: "Who is missing? Where is the power?"'],
+   exit:'Where is the empathy gap widest in your ecosystem — and what keeps it open?'},
+  {id:'ac-power',type:'ACTIVITY',cat:'ACTIVITY',day:'DAY 2',title:'Stakeholder Power Mapping — Who Holds the Leverage?',dur:'90 min',
+   steps:['Step 1 — Form groups (5 min): Groups of 4–5, mixed across challenge types.','Step 2 — Choose a map (5 min): Pick ONE person\'s ecosystem map from the previous session to work on together.','Step 3 — Draw the matrix (5 min): On a flipchart, draw a 2×2 grid. Y-axis: HIGH POWER ↑ / LOW POWER ↓. X-axis: LOW INTEREST ← / HIGH INTEREST →','Step 4 — Place stakeholders (20 min): Take every stakeholder from the ecosystem map and place them on the matrix. Disagreement is useful — it reveals assumptions.','Step 5 — Find leverage points (15 min): Identify 2–3 spots where a small intervention could shift the most.','Step 6 — Mark the blind spots (10 min): Which stakeholders is nobody talking to? Mark them with yellow post-its.','Step 7 — Gallery walk (25 min): Visit every group\'s matrix. Yellow post-it: "What I see that you might not". Blue post-it: "Who is missing". 5 minutes per station.'],
+   exit:'Who did your group overlook — and why was that person easy to miss?'},
+  {id:'ac-object',type:'ACTIVITY',cat:'ACTIVITY',day:'DAY 2',title:'Conversational Object — Design Brief',dur:'Empathy in Action session',
+   steps:['WHO (3 min): Who is this about? Not an abstract population — a person.','WHERE (3 min): Place it in a specific context. A neighbourhood in Rome? A street corner?','URGENCY (3 min): Is this happening now? Could you start working on it tomorrow?','HMW (5 min): Write a local "How Might We" question that connects your challenge to this place and these people.','BUILD — Your object is a physical thing you take to the streets to start a conversation. It is not a solution. It is a provocation.','Design check 1: Self-explanatory — a stranger understands what to do without you explaining.','Design check 2: Invites participation — there\'s a clear action: tip, write, move, vote, place, draw, choose.','Design check 3: Reveals something — the interaction surfaces an opinion, emotion, or data.','Design check 4: Creates dialogue — between the person and the object, or between people.','Design check 5: Connects to your HMW question — makes the problem felt, not just heard.','Sketch (5 min), then build (30 min). Test on another team: does it spark a reaction?'],
+   exit:'Does your object make someone feel the problem — or just hear about it?'},
+  {id:'ac-duallens',type:'ACTIVITY',cat:'ACTIVITY',day:'DAY 2',title:'Two Briefs, One Place — Dual-Lens Observation',dur:'40 min',
+   steps:['Step 1 — Government planner lens (10 min): Write a one-paragraph observation brief for Dharavi as if you were a government planner assessing it for redevelopment. What do you see? What do you count? What do you recommend?','Step 2 — Resident lens (10 min): Now write the same brief as a 10-year resident whose livelihood depends on the lane outside your door. What do you see? What matters? What do you fear?','Step 3 — Compare (5 min): Place the two briefs side by side. Where do they diverge? What does one see that the other cannot?','Step 4 — Your field brief for Rome (15 min): Write YOUR field brief for tomorrow\'s walk using BOTH lenses. Structure: "Through the system lens, I will look for..." / "Through the lived-experience lens, I will look for..." / "The specific question I want to answer on the street:"'],
+   exit:'Hold onto this brief. You will carry it into the field tomorrow morning.'},
+  {id:'ref-feedback',type:'REFERENCE',cat:'REFERENCE',day:'DAY 2',title:'Speed Date & Gallery Walk — Feedback Guide',
+   steps:['GIVING FEEDBACK — Answer three questions:','1. WORKS — What made you stop, react, or feel something? Be specific. Not "it\'s good" but "the moment where I had to physically choose a side made me uncomfortable — that\'s effective."','2. CHANGE — If you encountered this on the street with no context, what would confuse you? What would you walk past?','3. QUESTION — What question does this object raise that the makers might not have considered?','RECEIVING FEEDBACK:','Listen. Write it down. Don\'t explain or defend. You\'ll have time to iterate after.','The feedback that stings is usually the feedback that matters.']},
+  {id:'fi-tech',type:'FIELD',cat:'FIELD',day:'DAY 3',title:'Three Ways to See — Field Observation Techniques',
+   steps:['TECHNIQUE 1 — COUNT (Quantify): Pick 3 specific things and count them as you walk. Examples: people sitting alone, empty shopfronts, children playing, surveillance cameras, benches, bikes parked illegally. Numbers reveal what narratives hide. Write the counts down.','TECHNIQUE 2 — FOLLOW (Empathise): Choose one person and observe their path for 5 minutes. Don\'t approach them. Where do they pause? What do they avoid? Do they look comfortable or cautious? Write down what you notice about their experience of this place.','TECHNIQUE 3 — PHOTOGRAPH (Notice): Capture 5 things that don\'t belong or surprise you. Look for contradictions: a "welcome" sign next to a locked gate. A playground in shadow. A bench facing a wall. Things the city didn\'t plan for.','AFTER THE WALK — Post on the observation wall: Your 3 counts (numbers) / Your follow notes (one person\'s path) / Your 5 photos (contradictions and surprises)']},
+  {id:'ac-fieldwalk',type:'ACTIVITY',cat:'ACTIVITY',day:'DAY 3',title:'Field Immersion Walk — Go Outside and Observe',dur:'75 min',
+   steps:['Step 1 — Pair up (5 min): Find someone from a different challenge. Review each other\'s field briefs from yesterday. Your partner sees what you can\'t.','Step 2 — Walk and COUNT (20 min): Head into the neighbourhood. Use the COUNT technique: pick 3 things to tally. Stay within 15 minutes of TSH.','Step 3 — FOLLOW (15 min): Choose one person and observe their path for 5 minutes. Don\'t interact — just watch.','Step 4 — PHOTOGRAPH (15 min): Capture 5 things that surprise you or don\'t belong. Look for contradictions between what the city says it is and what you actually see.','Step 5 — Return and post (15 min): Post observations on the wall: COUNT (numbers) / FOLLOW (one person\'s experience) / PHOTOGRAPH (5 images)','Safety: Stay in pairs. Carry the venue phone number. Walking radius: max 15 min from TSH.'],
+   exit:'What did the street show you that no slide could?'},
+  {id:'ol',type:'OBS',cat:'OBSERVATION',day:'DAY 3',title:'Session — Narrative Reframing (Sejong City, South Korea)',prompts:['The dominant narrative I heard — and the voice it left out:','When I rewrote my challenge from someone else\'s perspective, what shifted:','The story my organisation would never publish about my challenge:']},
+  {id:'ac-narrative',type:'ACTIVITY',cat:'ACTIVITY',day:'DAY 3',title:'Rewrite the Story — Three Voices, One City',dur:'60 min',
+   steps:['Step 1 — Read the dominant narrative (2 min): Sejong City, South Korea: "A smart city success built for the future." Green, digital, transit-oriented, master-planned.','Step 2 — Grandmother\'s voice (8 min): Write the story of Sejong from a grandmother who moved from Seoul and lost her social network. What does she see? What does she miss?','Step 3 — Teenager\'s voice (8 min): Write it from a teenager with nowhere unstructured to hang out. No messy corners, no unsupervised spaces.','Step 4 — The unpublishable story (5 min): Which narrative would the city\'s marketing department never publish? Why not?','Step 5 — Your challenge, someone else\'s voice (15 min): Rewrite YOUR challenge story from a perspective that is not yours. Pick someone affected who you have never spoken to. Write it in first person.','Step 6 — Share in trios (15 min): Read your rewritten challenge story aloud. The others listen without defending, without correcting. After each reading: one question only.'],
+   exit:'Hold onto your rewrite. Some will be used in the Changemakers Stage.'},
+  {id:'om',type:'OBS',cat:'OBSERVATION',day:'DAY 4',title:'Inspiration — Carlos Moreno, 15-Minute City',prompts:['The idea from Carlos that connects most directly to my challenge:','Where did the 15-minute city narrative fail — and what does that tell me about how I tell my own story?','If I applied the 15-minute city lens to my neighbourhood back home, what would be missing within walking distance?']},
   {id:'d1m',type:'DAILY',cat:'DAILY',day:'DAY 1',title:'Morning — Day 1',prompts:['I arrive with this question:','I am willing to let go of:']},
   {id:'d1e',type:'DAILY',cat:'DAILY',day:'DAY 1',title:'Evening — Day 1',prompts:['Something that shifted in me today:','A connection I want to follow up:']},
   {id:'d2m',type:'DAILY',cat:'DAILY',day:'DAY 2',title:'Morning — Day 2',prompts:['What I am carrying from yesterday:','What I want to pay attention to today:']},
@@ -799,8 +829,8 @@ const ROLE_CARDS = [
 
 const prog=[
   {day:'DAY 1',date:'30 Mar',theme:'Self',col:'#C4200A',bg:'#FF9AB0',items:[{t:'Check-in & Hub Tour',s:'13:00–16:30'},{t:'Read the Room — Icebreaker',s:'16:30'},{t:'Case Study: The High Line',s:'17:00'},{t:'Dinner',s:'19:30'}]},
-  {day:'DAY 2',date:'31 Mar',theme:'System',col:'#00953C',bg:'#66BF8A',items:[{t:'Lorenzo Fioramonti — Being Future Proof',s:'09:15'},{t:'Ecosystem Mapping + Challenge Briefing',s:'10:00'},{t:'Stakeholder Power Mapping + Gallery Walk',s:'11:30'},{t:'Luca Ballarini — Urban Agency',s:'14:00'},{t:'Negotiation Role-Play — Spain',s:'15:00'},{t:'Empathy in Action — India',s:'16:15'}]},
-  {day:'DAY 3',date:'1 Apr',theme:'Street',col:'#0071FF',bg:'#66AAFF',items:[{t:'Yoga with Martina',s:'07:00'},{t:'Field Briefing — Street to Story',s:'09:15'},{t:'Redesign One Street — Role-Play',s:'10:30',handout:'role-cards'},{t:'Field Immersion Walk',s:'11:30'},{t:'Rosa Dinnissen — Public Affairs',s:'12:15'},{t:'Costanza De Stefani — C40 Cities',s:'14:15'},{t:'Gallery Walk + Prototype for Agency',s:'14:45'},{t:'Tram dinner',s:'19:30'}]},
+  {day:'DAY 2',date:'31 Mar',theme:'System',col:'#00953C',bg:'#66BF8A',items:[{t:'Lorenzo Fioramonti — Being Future Proof',s:'09:15'},{t:'Ecosystem Mapping + Challenge Briefing',s:'10:00'},{t:'Stakeholder Power Mapping + Gallery Walk',s:'11:30'},{t:'Luca Ballarini — Urban Agency',s:'14:00'},{t:'Redesign One Street — Role-Play',s:'15:00',handout:'role-cards'},{t:'Empathy in Action — India',s:'16:15'},{t:'Bridge to Street — Dual-Lens Brief',s:'16:30'}]},
+  {day:'DAY 3',date:'1 Apr',theme:'Street',col:'#0071FF',bg:'#66AAFF',items:[{t:'Yoga with Martina',s:'07:00'},{t:'Field Briefing — Street to Story',s:'09:15'},{t:'Field Immersion Walk',s:'11:30'},{t:'Rosa Dinnissen — Public Affairs',s:'12:15'},{t:'Costanza De Stefani — C40 Cities',s:'14:15'},{t:'Gallery Walk + Prototype for Agency',s:'14:45'},{t:'Narrative Reframing — Sejong City',s:'15:00'},{t:'Tram dinner',s:'19:30'}]},
   {day:'DAY 4',date:'2 Apr',theme:'Story',col:'#000000',bg:'#A4A4A5',items:[{t:'GYM training',s:'07:00'},{t:'Final Reflections with Carlos Moreno',s:'09:00'},{t:'Changemakers Stage — Ex Dogana',s:'10:30'},{t:'Panel Discussion',s:'11:10'},{t:'Graduation Ceremony',s:'12:30'}]},
 ];
 
@@ -833,8 +863,8 @@ function showTab(t,el){
 
 function buildFilters(){
   const fil=document.getElementById('filters');
-  const opts=['ALL','DAY 1','DAY 2','DAY 3','DAY 4','IDG','OBS','DAILY','FIELD','COMMIT'];
-  fil.innerHTML=opts.map(f=>`<button class="filt${f==='ALL'?' on':''}" onclick="setFilter('${f}',this)">${f==='OBS'?'Observation':f==='COMMIT'?'Commitment':f==='FIELD'?'Fieldwork':f}</button>`).join('');
+  const opts=['ALL','DAY 1','DAY 2','DAY 3','DAY 4','IDG','OBS','DAILY','FIELD','ACTIVITY','REFERENCE','COMMIT'];
+  fil.innerHTML=opts.map(f=>`<button class="filt${f==='ALL'?' on':''}" onclick="setFilter('${f}',this)">${f==='OBS'?'Observation':f==='COMMIT'?'Commitment':f==='FIELD'?'Fieldwork':f==='ACTIVITY'?'Activity':f==='REFERENCE'?'Reference':f}</button>`).join('');
 }
 
 function setFilter(f,el){activeFilter=f;document.querySelectorAll('.filt').forEach(b=>b.classList.remove('on'));el.classList.add('on');renderCards();}
@@ -890,6 +920,13 @@ function renderCard(c){
   }
 
   const prompts=(c.prompts||[]).map((p,i)=>`<div class="obs-prompt"><div class="obs-plbl" style="color:${col}">${p}</div><textarea class="resp-area" style="min-height:50px" placeholder="Your notes..." oninput="saveNote('${c.id}','p${i}',this.value)">${sv['p'+i]||''}</textarea></div>`).join('');
+  const stepsHtml=c.steps ? `
+    ${c.dur ? `<div style="font-size:10px;color:var(--grey);margin-bottom:8px;font-weight:600;text-transform:uppercase;letter-spacing:.04em">\u23F1 ${c.dur}</div>` : ''}
+    <div style="margin-bottom:10px">
+      ${c.steps.map(s => `<div style="font-size:11px;line-height:1.55;padding:8px 0;border-bottom:1px solid rgba(0,0,0,.06)">${s}</div>`).join('')}
+    </div>
+    ${c.exit ? `<div class="reflect-lbl" style="color:${col}">Exit question</div><div class="reflect-q">${c.exit}</div>` : ''}
+  ` : '';
   return `<div class="card">
     <div class="card-top">
       <span class="cat-badge" style="background:${bg};color:${col==='#000000'?'#000':col}">${c.cat}</span>
@@ -897,7 +934,7 @@ function renderCard(c){
     </div>
     <div class="card-body">
       <div class="card-title" style="margin-bottom:10px">${c.title}</div>
-      <hr class="divider">${prompts}
+      <hr class="divider">${c.steps ? stepsHtml : prompts}
     </div>
   </div>`;
 }
