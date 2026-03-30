@@ -1,8 +1,8 @@
 const CACHE = 'bsa-rome-v3';
 const ASSETS = [
-  '/bsa-rome-2026-card-deck/',
-  '/bsa-rome-2026-card-deck/index.html',
-  '/bsa-rome-2026-card-deck/manifest.json',
+  '/bsa-rome-2026/',
+  '/bsa-rome-2026/index.html',
+  '/bsa-rome-2026/manifest.json',
   'https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap'
 ];
 
