@@ -697,7 +697,7 @@ body{
       </div>
       <div class="gt-sliders" id="gt-sliders"></div>
       <div class="gt-reflection-label">Daily reflection</div>
-      <textarea class="gt-reflection" id="gt-reflection" placeholder="What shifted in you today? What are you noticing?" rows="3"></textarea>
+      <textarea class="gt-reflection" id="gt-reflection" placeholder="What shifted in you today? What are you noticing?" rows="3" oninput="gtAutoSave()"></textarea>
       <button class="gt-save-btn" id="gt-save-btn" onclick="gtSave()">Save assessment</button>
     </div>
     <div id="gt-growth" style="display:none">
@@ -1090,7 +1090,7 @@ function renderNotes(){
   }).join('');
 }
 
-try{const s=localStorage.getItem('bsa_rome_name');if(s)document.getElementById('name-input').value=s;}catch(e){}
+try{const s=localStorage.getItem('bsa_rome_name');if(s){document.getElementById('name-input').value=s;startApp();}}catch(e){}
 document.getElementById('name-input').addEventListener('keydown',e=>{if(e.key==='Enter')startApp();});
 
 // ===== PWA INSTALL PROMPT =====
@@ -1304,6 +1304,14 @@ function gtSelect(key, val) {
   gtScores[key] = val;
   gtBuildSliders();
   gtDrawRadar();
+  gtAutoSave();
+}
+
+function gtAutoSave() {
+  const reflection = document.getElementById('gt-reflection');
+  gtAssessments[gtDay] = { ...gtScores, reflection: reflection ? reflection.value : '', day: GT_DAYS[gtDay-1].label, date: GT_DAYS[gtDay-1].date };
+  try { localStorage.setItem('bsa_gt_assessments', JSON.stringify(gtAssessments)); } catch(e){}
+  gtUpdateDayBtns();
 }
 
 function gtSlide(key, val, el, col) {
