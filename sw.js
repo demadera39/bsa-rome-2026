@@ -1,4 +1,4 @@
-const CACHE = 'bsa-rome-v4';
+const CACHE = 'bsa-rome-v5';
 const ASSETS = [
   '/bsa-rome-2026/',
   '/bsa-rome-2026/index.html',
