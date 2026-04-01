@@ -753,6 +753,63 @@ const CAT_BG={
   'REFERENCE':'#A4A4A5'
 };
 
+// YouTube embed IDs per card
+const YT_IDS = {
+  'c01':'j3YjeARuilI','c02':'o0I0Poe3qlg','c03':'Cgw9oHDfJ4k',
+  'c04':'j7fRIGphgtk','c06':'HuWMO3M1HVQ','c07':'XyCY6mjWOPc',
+  'c08':'D9Ihs241zeg','c11':'S9ry1M7JlyE','c12':'LujWrkYsl64',
+  'c13':'MD23gIlr52Y','c14':'M5PiTCwoQRo','c15':'j3YjeARuilI',
+  'c16':'o0I0Poe3qlg','c18':'pVeq-0dIqpk','c19':'V74AxCqOTvg',
+  'c20':'gQ-cZRmHfs4','c22':'lVkyBf_TM9s','c23':'S9ry1M7JlyE'
+};
+
+function showEmbed(cardId) {
+  const container = document.getElementById('yt-'+cardId);
+  if(!container) return;
+  if(container.classList.contains('visible')) {
+    const poster = document.getElementById('yt-poster-'+cardId);
+    const fallback = document.getElementById('yt-fallback-'+cardId);
+    const iframe = container.querySelector('iframe');
+    if(iframe) iframe.remove();
+    if(poster) poster.style.display = 'flex';
+    if(fallback) fallback.classList.remove('visible');
+    container.classList.remove('visible');
+  } else {
+    container.classList.add('visible');
+  }
+}
+
+function playEmbed(cardId, fallbackUrl) {
+  const ytId = YT_IDS[cardId];
+  if(!ytId) { window.open(fallbackUrl,'_blank'); return; }
+
+  const container = document.getElementById('yt-'+cardId);
+  const poster    = document.getElementById('yt-poster-'+cardId);
+  const fallback  = document.getElementById('yt-fallback-'+cardId);
+  if(!container || !poster || !fallback) return;
+
+  poster.style.display = 'none';
+  const iframe = document.createElement('iframe');
+  iframe.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1`;
+  iframe.allow = 'autoplay; encrypted-media; fullscreen';
+  iframe.allowFullscreen = true;
+
+  let loaded = false;
+  const timer = setTimeout(() => {
+    if(!loaded) {
+      iframe.remove();
+      fallback.classList.add('visible');
+    }
+  }, 6000);
+
+  iframe.onload = () => {
+    loaded = true;
+    clearTimeout(timer);
+  };
+
+  container.appendChild(iframe);
+}
+
 const cards=[
   {id:'c01',type:'IDG',cat:'BEING',skill:'Inner Compass',day:'DAY 1',title:'Why Buses Represent Democracy in Action',speaker:'Enrique Peñalosa',dur:'TED · 14 min',reflect:'Close your eyes 60 sec. What is the one value you would never compromise — even if your challenge required it?',url:'https://www.ted.com/talks/enrique_penalosa_why_buses_represent_democracy_in_action'},
   {id:'c02',type:'IDG',cat:'BEING',skill:'Integrity & Authenticity',day:'DAY 1',title:'My Architectural Philosophy: Bring the Community into the Process',speaker:'Alejandro Aravena',dur:'TED · 16 min',reflect:'When did you last say "I don\'t know" in a professional context — and what happened?',url:'https://www.ted.com/talks/alejandro_aravena_my_architectural_philosophy_bring_the_community_into_the_process'},
@@ -1564,66 +1621,6 @@ function gtInit(){
 }
 
 
-// YouTube embed IDs per card
-const YT_IDS = {
-  'c01':'j3YjeARuilI','c02':'o0I0Poe3qlg','c03':'Cgw9oHDfJ4k',
-  'c04':'j7fRIGphgtk','c06':'HuWMO3M1HVQ','c07':'XyCY6mjWOPc',
-  'c08':'D9Ihs241zeg','c11':'S9ry1M7JlyE','c12':'LujWrkYsl64',
-  'c13':'MD23gIlr52Y','c14':'M5PiTCwoQRo','c15':'j3YjeARuilI',
-  'c16':'o0I0Poe3qlg','c18':'pVeq-0dIqpk','c19':'V74AxCqOTvg',
-  'c20':'gQ-cZRmHfs4','c22':'lVkyBf_TM9s','c23':'S9ry1M7JlyE'
-};
-
-function showEmbed(cardId) {
-  const container = document.getElementById('yt-'+cardId);
-  if(!container) return;
-  if(container.classList.contains('visible')) {
-    // Toggle off: restore poster, remove iframe
-    const poster = document.getElementById('yt-poster-'+cardId);
-    const fallback = document.getElementById('yt-fallback-'+cardId);
-    const iframe = container.querySelector('iframe');
-    if(iframe) iframe.remove();
-    if(poster) poster.style.display = 'flex';
-    if(fallback) fallback.classList.remove('visible');
-    container.classList.remove('visible');
-  } else {
-    container.classList.add('visible');
-  }
-}
-
-function playEmbed(cardId, fallbackUrl) {
-  const ytId = YT_IDS[cardId];
-  if(!ytId) { window.open(fallbackUrl,'_blank'); return; }
-
-  const container = document.getElementById('yt-'+cardId);
-  const poster    = document.getElementById('yt-poster-'+cardId);
-  const fallback  = document.getElementById('yt-fallback-'+cardId);
-  if(!container || !poster || !fallback) return;
-
-  // Hide poster, inject iframe
-  poster.style.display = 'none';
-  const iframe = document.createElement('iframe');
-  iframe.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1`;
-  iframe.allow = 'autoplay; encrypted-media; fullscreen';
-  iframe.allowFullscreen = true;
-
-  // 6-second fallback timer — only fires if onload never called
-  let loaded = false;
-  const timer = setTimeout(() => {
-    if(!loaded) {
-      iframe.remove();
-      fallback.classList.add('visible');
-    }
-  }, 6000);
-
-  iframe.onload = () => {
-    loaded = true;
-    clearTimeout(timer);
-    // onload fires normally for cross-origin embeds — no contentDocument check
-  };
-
-  container.appendChild(iframe);
-}
 
 </script>
 </body>
